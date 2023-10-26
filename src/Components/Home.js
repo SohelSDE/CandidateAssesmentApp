@@ -8,12 +8,12 @@ import SideNavbar from '../SubPackages/SideNavbar';
 import HomePage from './HomePage';
 import Auth from './Auth';
 import InterviewDashboard from './InterviewDashboard';
-import QuestionManagement from './QuestionManagement';
 import Scoring from './Scoring';
 import Footer from '../SubPackages/Footer';
 import LOGO from '../Images/LOGO.png'
 import ResumeSelection from './ResumeSelection';
 import InterviewQuestion from './InterviewQuestion';
+import CrudApp from './CrudApp';
 // import ResumeSelection from './ResumeSelection';
 
 
@@ -85,6 +85,8 @@ function Home() {
           <Route path="/QuestionManagement" element={<InterviewQuestion/>} />
           <Route path="/ResumeSelection" element={<ResumeSelection/>} />
           <Route path="/Scoring" element={<Scoring/>} />
+          <Route path="/CrudApp" element={<CrudApp/>} />
+
         </Routes>
       </main>
       <Footer/>

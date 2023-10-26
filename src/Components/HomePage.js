@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Container, Grid, Paper, Button } from '@mui/material';
 
 function HomePage() {
-  const videoUrl = 'https://www.youtube.com/watch?v=54eX4wx2je0&list=PL2rFahu9sLJ0pXNXfSiBlwqK4UidLIQWJ&ab_channel=GoogleMapsPlatform';
+  const videoUrl = 'https://www.youtube.com/watch?v=54eX4wx2je0&list=PL2rFahu9sLJ0pXNXfSiBlwqK4UidLIQWJ&ab_channel=GoogleMapsPlatform   ';
   const imageUrl = 'https://www.example.com/your-image.jpg';
 
   return (
