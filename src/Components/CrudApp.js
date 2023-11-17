@@ -1,100 +1,234 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteUserById, getUserFetch, getUserbyId } from '../Actions/action';
-
-import '../Styles/CrudApp.css'; 
-import UpdateAndCreate from './updateAndCreate';
+import React, { useEffect, useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  InputBase,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Dialog,
+  Button,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  CreateTwoTone,
+  DoneOutlineTwoTone,
+  HighlightOffTwoTone,
+  SwapVerticalCircleTwoTone,
+  VisibilityTwoTone,
+} from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUserById, getUserFetch, getUserbyId,getUserbyName } from "../Actions/action";
+import UpdateAndCreate from "./updateAndCreate";
+import Close from "@mui/icons-material/Close";
+import useHideOnClick from "../CustomHooks/useHideOnClick";
 
 const CrudApp = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
-  const userByid = useSelector((state=> state.userReducerById.userById))
-  const deleteById =useSelector((state)=> state.deleteReducerById.deleteById)
-  console.log("gettingback?",deleteById);
+  const userByid = useSelector((state) => state.userReducerById.userById);
+  const deleteById = useSelector((state) => state.deleteReducerById.deleteById);
+  const userName = useSelector((state) => state.userReducerByName.userbyName);
+  console.log("userBYNAME:-",userName)
+
   const [isCreateMode, setCreateMode] = useState(false);
+  const [isUpdateMode, setUpdateMode] = useState(false);
+
+  const [updateUserId, setUpdateUserId] = useState("");
+  const { isHidden, handleClick } = useHideOnClick();
+  const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
-    // Fetch user when the component mounts
     dispatch(getUserFetch());
   }, [dispatch]);
 
+ 
+
   const handleCreate = () => {
-    // Handle create logic
-    console.log("hitted")
     setCreateMode(true);
+    setUpdateMode(false);
+    
   };
 
-  const handleUpdate = () => {
-    // Handle update logic
+  const handleUpdate = (id) => {
+    setCreateMode(false);
+    setUpdateMode(true);
+    setUpdateUserId(id);
+
   };
 
   const handleDelete = (id) => {
 
-    console.log("Delete ID called :", id);
-        dispatch (deleteUserById(id))
-        if(deleteById==='User deleted'){
-          alert('Deleted Successfully');
-        }
+    dispatch(deleteUserById(id));
+    
   };
 
-  const  handleReadById = async(id) => {
-    console.log("User ID called :", id);
+  const handleReadById = async (id) => {
     await dispatch(getUserbyId(id));
-
   };
+  useEffect(() => {
+    if (deleteById === "User deleted") {
+      alert("Deleted Successfully");
+      window.location.reload();
+      dispatch(getUserFetch());
+    }
+  }, [deleteById, dispatch]);
+  
+  
+  const handleSearch = async () => {
+    
+      const res= dispatch(getUserbyName(searchName));
+      console.log ('respose:-',res)
+    
+  };
+
 
   return (
-    <div className="crud-app-container">
-      <h4>CRUD App</h4>
-      {isCreateMode && <UpdateAndCreate />}
-      <button className="custom-button" onClick={handleCreate}>
-        Create
-      </button>
-      <button className="custom-button" onClick={handleUpdate}>
-        Update
-      </button>
-      <form onSubmit={(e) => {
-        e.preventDefault(); // Prevents the form from submitting and reloading the page
-        const userId = e.target.elements.userId.value;
-        handleDelete(userId);
-      }}>
-        <input name="userId" placeholder="Enter user ID" />
-        <button type="submit" className="custom-button">
-          Delete by ID
-        </button>
-     
-      </form>
-      <form onSubmit={(e) => {
-        e.preventDefault(); // Prevents the form from submitting and reloading the page
-        const userId = e.target.elements.userId.value;
-        handleReadById(userId);
-      }}>
-        <input name="userId" placeholder="Enter user ID" />
-        <button type="submit" className="custom-button">
-          Read by ID
-        </button>
-      </form>
+    <div>
+       <div>
+      <Typography variant="subtitle1">Find User by Name:</Typography>
+      <Paper
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSearch();
+        }}
+      >
+        <InputBase
+          name="userName"
+          placeholder="Enter username"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+        <IconButton type="submit" color="inherit">
+          <SearchIcon color="secondary" />
+        </IconButton>
+      </Paper>
+    </div>
 
-      <button className="custom-button" onClick={() => dispatch(getUserFetch())}>
-        Fetch user
-      </button>
-      <div className="user-grid">
-        {user?.map((user) => (
-          <div key={user.id} className="user-item">
-            <span>user: {user.username}</span>
-          </div>
-        ))}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton color="inherit" edge="start" onClick={handleCreate}>
+            Create . <DoneOutlineTwoTone color="secondary"/>
+          </IconButton>
+          <IconButton  onClick={() => dispatch(getUserFetch())}>
+            Fetch user . <SwapVerticalCircleTwoTone color="secondary"/>
+          </IconButton>
+          <div style={{ flexGrow: 1 }} />
+          <Paper
+            component="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const userId = e.target.elements.userId.value;
+              handleReadById(userId);
+            }}
+          >
+            <InputBase name="userId" placeholder="Enter user ID" />
+            <IconButton type="submit" color="inherit">
+              <SearchIcon color="secondary" />
+            </IconButton>
+          </Paper>
+        </Toolbar>
+      </AppBar>
+
+      <Dialog open={isCreateMode || isUpdateMode}>
+  <div style={{ position:"fixed",top:'2px', right:"19rem" , borderStyle: "inset", borderColor:"red"}}>
+    <IconButton
+      style={{ color: 'red' }}
+      color="inherit"
+      onClick={() => (isCreateMode ? setCreateMode(false) : setUpdateMode(false))}
+    >
+      <Close />
+    </IconButton>
+  </div>
+
+  <UpdateAndCreate userId={updateUserId} />
+</Dialog>
+
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead style={{ background: "Gray" ,color: "#0B7A11" }}>
+            <TableRow >
+              <TableCell >ID</TableCell>
+              <TableCell>Username</TableCell>
+              <TableCell>ROLE</TableCell>
+              <TableCell>TEAM</TableCell>
+              <TableCell align="right">AVATAR</TableCell>
+              <TableCell align="center">CONTROLS</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody >
+            {user?.map((user) => (
+              <TableRow key={user.id} >
+
+                <TableCell >{user.id}</TableCell>
+                <TableCell>{user.username}</TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>{user.team}</TableCell>
+                <TableCell>
+                <Button onClick={handleClick} style={ isHidden ?{ color: "#0B7A11" }:{ color: "#FF5733" ,left:"55px"}}>
+        {" "}
+        {isHidden ? <VisibilityTwoTone /> : <HighlightOffTwoTone />}{" "}
+      </Button>
+
+      {isHidden ? null : (
+                  <Card>
+                    <CardMedia
+                      component="img"
+                      alt={user.username}
+                      height="auto"
+                      image={user.avatar}
+                      sx={{ position: "relative" }}
+                    />
+                  </Card>
+      )}
+                </TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleUpdate(user.id)}style={ { color: "#0B7A11" }}>
+                    <CreateTwoTone color="secondary"/>
+                    Updata
+                  </IconButton>
+                  <IconButton onClick={() => handleDelete(user.id)} style={ { color: "#FF5733" }}>
+                    <DeleteIcon color="secondary"/>
+                    Delete
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <div>
+        <Typography variant="subtitle1">Employee Found:-</Typography>
+        <Card sx={{ width: "20%", color: "GrayText" }}>
+          <CardContent>
+            <h4>{userByid.username}</h4>
+            <Typography>
+              {" "}
+              is a {userByid.role} from {userByid.team}{" "}
+            </Typography>
+            <CardMedia
+              component="img"
+              alt={userByid.username}
+              height="auto"
+              image={userByid.avatar}
+              sx={{ position: "relative" }}
+            />
+          </CardContent>
+        </Card>
       </div>
-      <div className='user-grid'>
-         
-            <div >
-              <p>Employee Found:-</p>
-              {userByid.name}
-            </div>
-
-      
-      </div>
-
     </div>
   );
 };

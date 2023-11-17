@@ -1,10 +1,12 @@
 import './App.css';
 import Home from './Components/Home';
+// import WidthChecker from './CustomHooks/useWidth'
 
 function App() {
   return (
-    <div>
+    <div >
     <Home/>
+    {/* <WidthChecker/> */}
     </div>
   );
 }

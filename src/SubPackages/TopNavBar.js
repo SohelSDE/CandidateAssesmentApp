@@ -8,7 +8,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 import LOGO from '../Images/LOGO.png';
-import { Announcement, NoteAdd } from '@mui/icons-material';
+import { Announcement, NewReleases, NoteAdd, PowerSettingsNew } from '@mui/icons-material';
 // ... (imports remain the same)
 
 function TopNavBar() {
@@ -31,6 +31,10 @@ function TopNavBar() {
     { to: '/ResumeSelection', label: 'Resume Selection', icon: <CloudUploadIcon /> },
     { to: '/Auth-uploader', label: 'Auth Uploader', icon: <AccountCircleIcon /> },
     { to: '/Scoring', label: 'Scores', icon: <Announcement /> },
+    { to: '/CrudApp', label: 'MASTER CONTROL', icon: <PowerSettingsNew /> },
+    { to: '/Test', label: 'TEST', icon: <NewReleases/> },
+
+
   ];
 
   return (

@@ -1,5 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, Container, Grid, Paper, List, ListItem, ListItemText, Divider } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  Typography,
+  Container,
+  Grid,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 
 function InterviewDashboard() {
   const [data, setData] = useState({
@@ -27,7 +36,7 @@ function InterviewDashboard() {
       <Grid container spacing={3}>
         {/* Clients List */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h6" gutterBottom>
               Clients
             </Typography>
@@ -46,7 +55,7 @@ function InterviewDashboard() {
 
         {/* Projects List */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h6" gutterBottom>
               Projects
             </Typography>

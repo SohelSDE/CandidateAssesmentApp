@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+.small{
+  background-color: rebeccapurple;
+  color:aliceblue
+}
+.big{
+  background-color: rgb(249, 252, 81);
+  color:rgb(48, 3, 249)
+}

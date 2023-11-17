@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
-import { Button, TextField, Snackbar, Alert, Paper, Typography, Avatar } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import './SignInPage.css'; // Import your CSS file
+import React, { useState } from "react";
+import {
+  Button,
+  TextField,
+  Snackbar,
+  Alert,
+  Paper,
+  Typography,
+  Avatar,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import "./SignInPage.css"; // Import your CSS file
 
 const SignUp = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const signUpApi = async () => {
     // Validate the fields
@@ -20,25 +28,31 @@ const SignUp = () => {
 
     // Call your signup API here and handle the response
     try {
-      const response = await fetch('your-signup-api-endpoint', {
-        method: 'POST',
+      const response = await fetch("your-signup-api-endpoint", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password, firstName, lastName, email }),
+        body: JSON.stringify({
+          username,
+          password,
+          firstName,
+          lastName,
+          email,
+        }),
       });
 
       if (response.ok) {
         // Handle successful signup
-        setSnackbarMessage('Account created successfully');
+        setSnackbarMessage("Account created successfully");
         setSnackbarOpen(true);
       } else {
         // Handle signup error
-        setSnackbarMessage('Error creating account');
+        setSnackbarMessage("Error creating account");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error("Error signing up:", error);
     }
   };
 
@@ -46,25 +60,31 @@ const SignUp = () => {
     // Your validation logic goes here
     // Example validations based on the specified criteria
     if (!/^[A-Z][a-z]*$/.test(username)) {
-      setSnackbarMessage('Username must start with a capital letter');
+      setSnackbarMessage("Username must start with a capital letter");
       setSnackbarOpen(true);
       return false;
     }
 
-    if (!/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(password)) {
-      setSnackbarMessage('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+    if (
+      !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
+        password
+      )
+    ) {
+      setSnackbarMessage(
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      );
       setSnackbarOpen(true);
       return false;
     }
 
     if (!/^[A-Z][a-z]*$/.test(firstName)) {
-      setSnackbarMessage('First name must start with a capital letter');
+      setSnackbarMessage("First name must start with a capital letter");
       setSnackbarOpen(true);
       return false;
     }
 
-    if (email === '' || !isValidEmail(email)) {
-      setSnackbarMessage('Invalid email address');
+    if (email === "" || !isValidEmail(email)) {
+      setSnackbarMessage("Invalid email address");
       setSnackbarOpen(true);
       return false;
     }
@@ -169,7 +189,11 @@ const SignUp = () => {
           Sign Up
         </Button>
       </form>
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
         <Alert onClose={handleSnackbarClose} severity="error">
           {snackbarMessage}
         </Alert>
@@ -179,4 +203,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
- 

@@ -1,12 +1,11 @@
-// InterviewQuestion.js
-import React, { useState } from 'react';
-import questionAnswerData from '../SubPackages/QuestionAnswerData';
-import QuestionAnswerCard from '../SubPackages/QuestineAnswerCard';
-import { Typography, FormControl, Select, MenuItem, Grid } from '@mui/material';
+import React, { useState } from "react";
+import questionAnswerData from "../SubPackages/QuestionAnswerData";
+import QuestionAnswerCard from "../SubPackages/QuestineAnswerCard";
+import { Typography, FormControl, Select, MenuItem, Grid } from "@mui/material";
 
 const InterviewQuestion = () => {
-  const [selectedExperienceLevel, setSelectedExperienceLevel] = useState('');
-  const [selectedTopic, setSelectedTopic] = useState('');
+  const [selectedExperienceLevel, setSelectedExperienceLevel] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("");
 
   const filterQuestions = () => {
     return questionAnswerData.filter(

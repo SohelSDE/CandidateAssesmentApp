@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Typography, Container, Grid, Paper } from '@mui/material';
+import React, { useState } from "react";
+import { TextField, Typography, Container, Grid, Paper } from "@mui/material";
 
 function Scoring() {
   const [scores, setScores] = useState({
@@ -26,7 +26,7 @@ function Scoring() {
       <Grid container spacing={3}>
         {/* Control Panel */}
         <Grid item xs={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
               Scoring Control Panel
             </Typography>
@@ -37,7 +37,9 @@ function Scoring() {
                 variant="outlined"
                 fullWidth
                 value={scores.technical}
-                onChange={(e) => handleScoreChange('technical', parseInt(e.target.value, 10))}
+                onChange={(e) =>
+                  handleScoreChange("technical", parseInt(e.target.value, 10))
+                }
               />
               <br />
               <TextField
@@ -46,7 +48,12 @@ function Scoring() {
                 variant="outlined"
                 fullWidth
                 value={scores.communication}
-                onChange={(e) => handleScoreChange('communication', parseInt(e.target.value, 10))}
+                onChange={(e) =>
+                  handleScoreChange(
+                    "communication",
+                    parseInt(e.target.value, 10)
+                  )
+                }
               />
             </form>
           </Paper>
@@ -54,13 +61,19 @@ function Scoring() {
 
         {/* Result Panel */}
         <Grid item xs={6}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h5" gutterBottom>
               Scoring Results
             </Typography>
-            <Typography variant="body1">Technical Score: {scores.technical}</Typography>
-            <Typography variant="body1">Communication Score: {scores.communication}</Typography>
-            <Typography variant="body1">Overall Score: {scores.overall}</Typography>
+            <Typography variant="body1">
+              Technical Score: {scores.technical}
+            </Typography>
+            <Typography variant="body1">
+              Communication Score: {scores.communication}
+            </Typography>
+            <Typography variant="body1">
+              Overall Score: {scores.overall}
+            </Typography>
           </Paper>
         </Grid>
       </Grid>

@@ -92,7 +92,8 @@ export default function ResumeSelection() {
               style={styles.uploadResumeButton}
             >
               <input type="file" hidden onChange={handleResumeUpload} />
-              Upload Resume <UploadFileSharpIcon style={{ marginLeft: "8px" }} />
+              Upload Resume{" "}
+              <UploadFileSharpIcon style={{ marginLeft: "8px" }} />
             </Button>
           </Paper>
         </Grid>
@@ -118,7 +119,7 @@ export default function ResumeSelection() {
           <Paper>
             <Typography variant="h5">Auto-Fill With LinkedIn</Typography>
             <Button variant="contained" onClick={autoFillDetails}>
-              Auto-Fill <LinkedIn/>
+              Auto-Fill <LinkedIn />
             </Button>
           </Paper>
         </Grid>

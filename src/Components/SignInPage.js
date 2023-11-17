@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
-import { Button, TextField, Snackbar, Alert, Paper, Typography, Avatar, Dialog, DialogTitle, DialogContent } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import './SignInPage.css'; // Import your CSS file
-import SignUp from './SignUp'; // Import the SignUp component
+import React, { useState } from "react";
+import {
+  Button,
+  TextField,
+  Snackbar,
+  Alert,
+  Paper,
+  Typography,
+  Avatar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import "./SignInPage.css"; // Import your CSS file
+import SignUp from "./SignUp"; // Import the SignUp component
 
 const SignInPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [openSignUp, setOpenSignUp] = useState(false);
 
   const signInApi = async () => {
     // Call your authentication API here and handle the response
     try {
-      const response = await fetch('your-auth-api-endpoint', {
-        method: 'POST',
+      const response = await fetch("your-auth-api-endpoint", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
@@ -33,11 +44,11 @@ const SignInPage = () => {
         // You can store the token in state or a global context for further use
       } else {
         // Handle authentication error
-        setSnackbarMessage('Invalid username or password');
+        setSnackbarMessage("Invalid username or password");
         setSnackbarOpen(true);
       }
     } catch (error) {
-      console.error('Error signing in:', error);
+      console.error("Error signing in:", error);
     }
   };
 
@@ -102,10 +113,18 @@ const SignInPage = () => {
             Sign In
           </Button>
         </form>
-        <Button color="primary" onClick={handleSignUpOpen} className="signup-link">
+        <Button
+          color="primary"
+          onClick={handleSignUpOpen}
+          className="signup-link"
+        >
           Don't have an account? Sign Up
         </Button>
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
           <Alert onClose={handleSnackbarClose} severity="success">
             {snackbarMessage}
           </Alert>
